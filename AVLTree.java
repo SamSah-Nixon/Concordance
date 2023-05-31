@@ -289,6 +289,11 @@ public class AVLTree<E extends Comparable<? super E>>{
         return null;
     }
 
+    /**
+     * Finds an item in the tree
+     * @param item the item to find
+     * @return the data of the item if it is found, null otherwise
+     */
     public E findData(E item){
         return find(item).data;
     }

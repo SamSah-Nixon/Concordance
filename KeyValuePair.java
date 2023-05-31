@@ -42,9 +42,6 @@ public class KeyValuePair<K extends Comparable<? super K>, E> implements Compara
         return key.compareTo(o.key);
     }
 
-    public boolean equals(KeyValuePair<K, E> o) {
-        return key.equals(o.key);
-    }
 }
 
 

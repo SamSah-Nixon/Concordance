@@ -22,10 +22,12 @@ public class Main {
         MyListMap<String, ArrayList<String>> map = new MyListMap<>();
         AVLTree<KeyValuePair<String,Integer>> tree = new AVLTree<>();
         int lineNum = 0;
+        //Read each line of the file
         while(inData.hasNextLine()){
             lineNum++;
             String[] line = inData.nextLine().split(" ");
             int wordNum = 0;
+            //Read each word of the line
             for(String word : line){
                 //Map
                 wordNum++;
