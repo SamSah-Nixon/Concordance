@@ -39,6 +39,7 @@ public class Concordance {
             //Read each word of the line
             for (String word : line) {
                 //Map
+                word = trim(word);
                 addToMap(word);
 
 
@@ -48,6 +49,11 @@ public class Concordance {
             }
 
         }
+    }
+
+    public String trim(String string){
+        //TODO: WIP
+        return string.replaceAll("[^a-zA-Z0-9]", "");
     }
 
     public void addToTree(String word){
