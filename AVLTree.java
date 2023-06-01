@@ -1,7 +1,8 @@
 /*
  * Created: 5/2/2023
  * Last Modified: 5/31/2023
- * Sam Sah-Nixon
+ * Sam not sam
+ 
  * AVL tree implementation
  * Binary search tree that balances itself after each insertion or deletion
  */
