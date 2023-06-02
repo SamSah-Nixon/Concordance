@@ -4,6 +4,7 @@
  * Created: 6/01/2023
  * Modified: 6/01/2023
  */
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,17 +12,19 @@ import java.util.Scanner;
 public class Concordance {
     private static MyListMap<String, ArrayList<String>> map = new MyListMap<>();
     private static AVLTree<KeyValuePair<String,Integer>> tree = new AVLTree<>();
+
+    private static String[] contractions = null;
     private static Scanner inData;
+
     private static int lineNum = 0;
     private static int wordNum = 0;
 
     public Concordance(String filename) {
-        FileReader reader;
         inData = null;
         //Read and parse the included .txt file.
         try {
-            reader = new FileReader(filename);
-            inData = new Scanner(reader);
+            contractions = new Scanner(new FileReader("contractions.txt")).nextLine().split(",");
+            inData = new Scanner(new FileReader(filename));
         } catch (Exception e) {
             System.out.println("Opening input file failed: " + e);
             System.exit(0);
@@ -38,8 +41,16 @@ public class Concordance {
             wordNum = 0;
             //Read each word of the line
             for (String word : line) {
-                //Map
+                //Remove case, punctuation, and whitespace. Commas are kept here
+                word = trim(word.toLowerCase().trim());
+                for (String contraction : contractions) {
+                    //If word is not a contraction, remove the 's or s'
+                    if((word.endsWith("'s") || word.endsWith("s'")) && !word.equalsIgnoreCase(contraction)) {
+                        word = word.substring(0, word.length() - 2);
+                    }
+                }
                 word = trim(word);
+                //Map
                 addToMap(word);
 
 
@@ -78,7 +89,6 @@ public class Concordance {
         }
 
     }
-
     public AVLTree<KeyValuePair<String,Integer>> getTree(){
         return tree;
     }
