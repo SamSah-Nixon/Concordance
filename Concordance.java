@@ -37,7 +37,7 @@ public class Concordance {
         while (inData.hasNextLine()) {
             lineNum++;
 
-            String[] line = emDash(inData.nextLine()).split(" ");
+            String[] line = makeSpaces(inData.nextLine()).split(" ");
             wordNum = 0;
             //Read each word of the line
             for (String word : line) {
@@ -67,8 +67,8 @@ public class Concordance {
         return word;
     }
 
-    public static String emDash(String line){
-        return line.replaceAll("--", " ");
+    public static String makeSpaces(String line){
+        return line.replaceAll("--", " ").replaceAll("\n", " ");
     }
     public void addToTree(String word){
         if (!tree.insert(new KeyValuePair<>(word, 1))) {
