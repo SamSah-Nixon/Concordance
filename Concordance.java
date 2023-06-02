@@ -4,7 +4,6 @@
  * Created: 6/01/2023
  * Modified: 6/01/2023
  */
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -37,23 +36,14 @@ public class Concordance {
         //Read each line of the file
         while (inData.hasNextLine()) {
             lineNum++;
-            String[] line = inData.nextLine().split(" ");
+
+            String[] line = emDash(inData.nextLine()).split(" ");
             wordNum = 0;
             //Read each word of the line
             for (String word : line) {
-                //Remove case, punctuation, and whitespace. Commas are kept here
-                word = trim(word.toLowerCase().trim());
-                for (String contraction : contractions) {
-                    //If word is not a contraction, remove the 's or s'
-                    if((word.endsWith("'s") || word.endsWith("s'")) && !word.equalsIgnoreCase(contraction)) {
-                        word = word.substring(0, word.length() - 2);
-                    }
-                }
-                word = trim(word);
+                word = trimPunctuation(word);
                 //Map
                 addToMap(word);
-
-
                 //Tree
                 addToTree(word);
                 wordNum++;
@@ -62,11 +52,24 @@ public class Concordance {
         }
     }
 
-    public String trim(String string){
-        //TODO: WIP
-        return string.replaceAll("[^a-zA-Z0-9]", "");
+    public static String trimPunctuation(String word){
+        //Remove case, punctuation, and whitespace. Commas are kept here
+        word = word.toLowerCase().trim().replaceAll("[^a-zA-Z0-9-']", "");
+        for (String contraction : contractions) {
+            //If word is not a contraction, remove the 's or s'
+            if((word.endsWith("'s") || word.endsWith("s'")) && !word.equalsIgnoreCase(contraction)) {
+                word = word.substring(0, word.length() - 2);
+            }
+            //If word is not a contraction and not a possessive, remove the apostrophe
+            else if(!word.equalsIgnoreCase(contraction))
+                word = word.replaceAll("'", "");
+        }
+        return word;
     }
 
+    public static String emDash(String line){
+        return line.replaceAll("--", " ");
+    }
     public void addToTree(String word){
         if (!tree.insert(new KeyValuePair<>(word, 1))) {
             //Get number of previous tree node
