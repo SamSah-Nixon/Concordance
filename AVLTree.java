@@ -11,10 +11,18 @@ public class AVLTree<E extends Comparable<? super E>>{
 
     private TreeNode<E> root;
     private int size;
+    private boolean printParent;
 
     public AVLTree(){
         root = null;
         size = 0;
+        printParent = true;
+    }
+
+    public AVLTree(boolean printParent){
+        root = null;
+        size = 0;
+        this.printParent = printParent;
     }
 
     /**
@@ -327,7 +335,9 @@ public class AVLTree<E extends Comparable<? super E>>{
         deque.addLast(root);
         while(!deque.isEmpty()){
             current = deque.removeFirst();
-            if(current.parent == null)
+            if(!printParent)
+                string.append("("+current.data+"),\n");
+            else if(current.parent == null)
                 string.append("(null, "+current.data+")");
             else
                 string.append(", ("+current.parent.data+", "+current.data+")");

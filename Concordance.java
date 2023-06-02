@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Concordance {
     private static MyListMap<String, ArrayList<String>> map = new MyListMap<>();
-    private static AVLTree<KeyValuePair<String,Integer>> tree = new AVLTree<>();
+    private static AVLTree<KeyValuePair<String,Integer>> tree = new AVLTree<>(false);
 
     private static String[] contractions = null;
     private static Scanner inData;
@@ -41,7 +41,7 @@ public class Concordance {
             wordNum = 0;
             //Read each word of the line
             for (String word : line) {
-                word = trimPunctuation(word);
+                word = trimPunctuation(word).trim();
                 //Map
                 addToMap(word);
                 //Tree

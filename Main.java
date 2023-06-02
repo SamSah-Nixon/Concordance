@@ -8,7 +8,7 @@
 public class Main {
     public static void main(String[] args) {
         Concordance concordance = new Concordance("input.txt");
-        System.out.println("Map"+concordance.getMap());
-        System.out.println("Tree"+concordance.getTree());
+        System.out.println("Map\n"+concordance.getMap());
+        System.out.println("Tree\n"+concordance.getTree());
     }   
 }

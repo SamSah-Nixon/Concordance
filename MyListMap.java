@@ -254,7 +254,7 @@ public class MyListMap<K extends Comparable<? super K>, E> implements MyMap<K,E>
     items.append("[");
     for(KeyValuePair<K, E> pair : this)
     {
-      items.append(pair.toString()+", ");
+      items.append(pair.toString()+",\n");
     }
     return items.substring(0, items.length()-2)+"]";
   }
